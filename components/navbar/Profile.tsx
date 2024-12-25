@@ -1,11 +1,20 @@
+"use client"
+
 import Link from 'next/link';
 import React from 'react'
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { GoogleLogin } from '@react-oauth/google';
+import { auth } from '@/services/auth/User';
 
 type Props = {}
 
 const Profile = (props: Props) => {
-    const isLoggedIn = true;
+    const isLoggedIn = false;
+
+    const onSuccess = async (res: {credential?: string }) => {
+      if (!res.credential) return;
+      auth(res.credential)
+    };
   return (
     <>
       {isLoggedIn 
@@ -24,9 +33,7 @@ const Profile = (props: Props) => {
         )
 
       : (
-       <div>
-        No user!
-       </div>
+       <GoogleLogin onSuccess={res => onSuccess(res)} onError={()=> console.error("Something gone wrong try again!")}/>
       )}
     </>
   )
