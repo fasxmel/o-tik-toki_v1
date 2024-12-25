@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import Navbar from "@/components/navbar/Navbar";
 
 
 export const metadata: Metadata = {
   title: "o-tik-toki",
   description: "Welcome to the tik-toki",
+  icons:"/images/favicon.ico"
 };
 
 export default function RootLayout({
@@ -14,9 +16,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+     
+      <body className="max-h-screen h-screen flex flex-col">
+        <Navbar/>
         {children}
       </body>
+
     </html>
   );
 }
